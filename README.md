@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# todo
-=======
 # LAB - Class 31
 
 ## Project: Todo List
@@ -16,4 +13,3 @@
 #### UML
 
 ![uml](./imgs/uml.jpg)
->>>>>>> 5c695ba1bb47fff1bca4c2d6e691db5f124f08c7
