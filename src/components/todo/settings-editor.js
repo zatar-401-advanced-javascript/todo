@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
 import { SettingsContext } from '../../context/settings';
 import { Container, Row } from 'react-bootstrap';
+
 function SettingsEditor() {
   const context = useContext(SettingsContext);
-
-
 
   return (
     <>
@@ -13,12 +12,13 @@ function SettingsEditor() {
       <Row>
       <label>
         <span>Items per Page </span>
-        <input
+        <input type="number"
           placeholder={context.perScreen}
           onChange={(e) => context.setPerScreen(e.target.value)}
         />
       </label>
       </Row>
+      <Row>
       <label>
         <span>Hide Completed Tasks </span>
         <input type="checkbox"
@@ -26,8 +26,6 @@ function SettingsEditor() {
           onChange={(e) => context.setDisplayCompleted(!context.displayCompleted)}
         />
       </label>
-      <Row>
-
       </Row>
       <Row>
       <label>

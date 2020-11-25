@@ -2,6 +2,8 @@ import { useState, useContext } from 'react';
 import { Pagination } from 'react-bootstrap';
 import context from 'react-bootstrap/esm/AccordionContext';
 import { SettingsContext } from '../context/settings';
+import { If } from 'react-if';
+
 // import useForm from './form'
 
 function usePagination(list) {
@@ -11,12 +13,12 @@ function usePagination(list) {
   let filteredList = []
 
   const showCompleted = () => {
-    if(siteContext.displayCompleted === true){
+    if (siteContext.displayCompleted === true) {
       console.log('test')
       filteredList = [...list];
-    }else{
+    } else {
       list.forEach((item) => {
-        if(item.complete === false){
+        if (item.complete === false) {
           filteredList.push(item)
         }
       })
@@ -37,14 +39,14 @@ function usePagination(list) {
 
     showCompleted()
     console.log(context.sort)
-    if(siteContext.sort === 'difficulty'){
+    if (siteContext.sort === 'difficulty') {
       sort()
     }
     let condition = (activePage * siteContext.perScreen) - 1;
     let begin = (condition - siteContext.perScreen) + 1;
-      if(condition>=filteredList.length){
-        condition = filteredList.length-1;
-      }
+    if (condition >= filteredList.length) {
+      condition = filteredList.length - 1;
+    }
     let showItem = []
     for (let i = begin; i <= condition; i++) {
       if (i === begin) {
@@ -57,15 +59,30 @@ function usePagination(list) {
 
   const pageNumbers = () => {
     let items = [];
-    for (let number = 1; number <= Math.ceil(filteredList.length/siteContext.perScreen); number++) {
+    let max = Math.ceil(filteredList.length / siteContext.perScreen)
+    for (let number = 1; number <= max; number++) {
       items.push(
         <Pagination.Item onClick={() => handleChange(number)} key={number} active={number === activePage}>
           {number}
-        </Pagination.Item>,
+        </Pagination.Item>
       );
     }
     return (
-        <Pagination size="sm">{items}</Pagination>
+      <Pagination size="sm">
+        <If condition={activePage > 1}>
+          <Pagination.Item onClick={() => handleChange(activePage - 1)}>
+            Previous
+        </Pagination.Item>
+        </If>
+        {/* <Pagination.Prev onClick={() => handleChange(activePage-1)}/> */}
+        {items}
+        {/* <Pagination.Next onClick={() => handleChange(activePage+1)}/> */}
+        <If condition={activePage < max}>
+          <Pagination.Item onClick={() => handleChange(activePage + 1)}>
+            Next
+        </Pagination.Item>
+        </If>
+      </Pagination>
     );
   }
 
@@ -73,7 +90,7 @@ function usePagination(list) {
     setActivePage(number);
   }
 
-  return {showList,pageNumbers};
+  return { showList, pageNumbers };
 }
 
 export default usePagination;
