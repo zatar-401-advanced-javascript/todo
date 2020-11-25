@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react';
 import TodoForm from './form.js';
 import TodoList from './list.js';
-import { Navbar, Nav, Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import useForm from '../../hooks/form';
 import useList from '../../hooks/list';
 import useAjax from '../../hooks/api';
 import SettingsEditor from './settings-editor'
-import './todo.scss';
+import Auth from '../auth/auth'
+
 
 function ToDo() {
   const [list, setList, handleInputChange, handleSubmit] = useForm();
   const [handler, todoAPI] = useAjax();
   const [loader, toggleComplete, deleteTask] = useList(handler, todoAPI, setList, list);
+
 
   useEffect(() => {
     loader()
@@ -24,11 +26,6 @@ function ToDo() {
 
   return (
     <>
-      <Navbar className='nav' variant="dark" >
-        <Nav className="mr-auto" >
-          <Nav.Link href="" style={{ color: "#eeeeee" }}>Home</Nav.Link>
-        </Nav>
-      </Navbar>
       <Container fluid="lg">
         <Row className="title">
           <Col>
@@ -42,11 +39,15 @@ function ToDo() {
             <Container>
               <Row>
                 <Col sm={4}>
-                  <TodoForm handleInputChange={handleInputChange} handleSubmit={handleSubmit} />
+                  <Auth capability="create">
+                    <TodoForm handleInputChange={handleInputChange} handleSubmit={handleSubmit} />
+                  </Auth>
                   <SettingsEditor />
                 </Col>
-                <Col sm={2}>
-                </Col>
+                <Auth capability="create">
+                  <Col sm={2}>
+                  </Col>
+                </Auth>
                 <Col sm={6}>
                   <TodoList
                     list={list}
@@ -58,7 +59,7 @@ function ToDo() {
             </Container>
           </Col>
         </Row>
-      
+
       </Container>
     </>
   );

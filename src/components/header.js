@@ -1,0 +1,46 @@
+import React, { useState, useContext } from 'react';
+import { Navbar, Nav, Button } from 'react-bootstrap';
+import Signin from './auth/signin';
+import Signup from './auth/signup';
+import { If, Else, Then } from 'react-if';
+import { AuthContext } from '../context/auth'
+
+function Header() {
+  const contextType = useContext(AuthContext);
+  const [signinShow, setSigninShow] = useState(false);
+  const [signupShow, setSignupShow] = useState(false);
+
+  return (
+    <Navbar className='nav' variant="dark" >
+      <Nav className="mr-auto" >
+        <Nav.Link href="" style={{ color: "#eeeeee" }}>Home</Nav.Link>
+      </Nav>
+      <If condition={contextType.loggedIn}>
+        <Then>
+          <Button variant="outline-info" onClick={contextType.logout}>
+            Logout
+            </Button>
+        </Then>
+        <Else>
+          <Button style={{ marginRight: '10px' }} variant="outline-info" onClick={() => setSigninShow(true)}>
+            Signin
+      </Button>
+
+          <Button className={'.text-danger'} variant="outline-danger" onClick={() => setSignupShow(true)}>
+            Signup
+      </Button>
+        </Else>
+      </If>
+      <Signin
+        show={signinShow}
+        onHide={() => setSigninShow(false)}
+      />
+      <Signup
+        show={signupShow}
+        onHide={() => setSignupShow(false)}
+      />
+    </Navbar>
+  );
+}
+
+export default Header;
