@@ -43,6 +43,7 @@ function ToDo() {
               <Row>
                 <Col sm={4}>
                   <TodoForm handleInputChange={handleInputChange} handleSubmit={handleSubmit} />
+                  <SettingsEditor />
                 </Col>
                 <Col sm={2}>
                 </Col>
@@ -57,7 +58,7 @@ function ToDo() {
             </Container>
           </Col>
         </Row>
-      <SettingsEditor />
+      
       </Container>
     </>
   );
