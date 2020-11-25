@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 export const SettingsContext = React.createContext();
 
 function SettingsProvider(props) {
-  const [displayCompleted, setDisplayCompleted] = useState(true);
+  const [displayCompleted, setDisplayCompleted] = useState(false);
   const [perScreen, setPerScreen] = useState(3);
   const [sort, setSort] = useState('difficulty');
   const state = {

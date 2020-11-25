@@ -38,15 +38,17 @@ function usePagination(list) {
     }
 
     showCompleted()
-    console.log(context.sort)
     if (siteContext.sort === 'difficulty') {
       sort()
     }
+
     let condition = (activePage * siteContext.perScreen) - 1;
     let begin = (condition - siteContext.perScreen) + 1;
+
     if (condition >= filteredList.length) {
       condition = filteredList.length - 1;
     }
+    
     let showItem = []
     for (let i = begin; i <= condition; i++) {
       if (i === begin) {
@@ -70,13 +72,11 @@ function usePagination(list) {
     return (
       <Pagination size="sm">
         <If condition={activePage > 1}>
-          <Pagination.Item onClick={() => handleChange(activePage - 1)}>
+          <Pagination.Item  onClick={() => handleChange(activePage - 1)}>
             Previous
         </Pagination.Item>
         </If>
-        {/* <Pagination.Prev onClick={() => handleChange(activePage-1)}/> */}
         {items}
-        {/* <Pagination.Next onClick={() => handleChange(activePage+1)}/> */}
         <If condition={activePage < max}>
           <Pagination.Item onClick={() => handleChange(activePage + 1)}>
             Next
