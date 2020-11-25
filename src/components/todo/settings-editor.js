@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { SettingsContext } from '../../context/settings';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 function SettingsEditor() {
   const context = useContext(SettingsContext);
 
