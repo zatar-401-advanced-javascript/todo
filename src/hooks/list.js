@@ -1,5 +1,3 @@
-import React from 'react';
-
 function useList(handler, todoAPI, setList, list) {
 
   const toggleComplete = id => {
@@ -27,6 +25,7 @@ function useList(handler, todoAPI, setList, list) {
   const loader = () => {
     handler(todoAPI, 'get', '')
       .then(data => {
+        console.log('test')
         setList(data.results)
       })
   }

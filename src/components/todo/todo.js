@@ -5,15 +5,17 @@ import { Navbar, Nav, Container, Row, Col } from 'react-bootstrap';
 import useForm from '../../hooks/form';
 import useList from '../../hooks/list';
 import useAjax from '../../hooks/api';
+import SettingsEditor from './settings-editor'
 import './todo.scss';
 
 function ToDo() {
-  const [list,setList,handleInputChange,handleSubmit] = useForm();
-  const [handler,todoAPI] = useAjax();
-  const [loader,toggleComplete,deleteTask] = useList(handler,todoAPI,setList,list);
+  const [list, setList, handleInputChange, handleSubmit] = useForm();
+  const [handler, todoAPI] = useAjax();
+  const [loader, toggleComplete, deleteTask] = useList(handler, todoAPI, setList, list);
 
   useEffect(() => {
     loader()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -40,7 +42,8 @@ function ToDo() {
             <Container>
               <Row>
                 <Col sm={4}>
-                  <TodoForm handleInputChange={handleInputChange} handleSubmit={handleSubmit}/>
+                  <TodoForm handleInputChange={handleInputChange} handleSubmit={handleSubmit} />
+                  <SettingsEditor />
                 </Col>
                 <Col sm={2}>
                 </Col>
@@ -55,6 +58,7 @@ function ToDo() {
             </Container>
           </Col>
         </Row>
+      
       </Container>
     </>
   );
