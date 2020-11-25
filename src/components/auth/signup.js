@@ -7,7 +7,7 @@ function Signup(props) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
-  const [role, setRole] = useState('user')
+  const [role, setRole] = useState('')
 
   const handleChange = (e) => {
     if (e.target.name === 'username') {
@@ -17,13 +17,14 @@ function Signup(props) {
     } else if (e.target.name === 'email') {
       setEmail(e.target.value)
     } else {
-      setRole((e.target.value).toLowerCase())
+      setRole(e.target.value)
     }
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     props.onHide()
+    console.log(username, email, password, role)
     contextType.signup(username, email, password, role);
   };
 
@@ -49,7 +50,7 @@ function Signup(props) {
 
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email</Form.Label>
-            <Form.Control onChange={handleChange} name='email' required type="email" placeholder="Enter username" />
+            <Form.Control onChange={handleChange} name='email' required type="email" placeholder="Enter email" />
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
@@ -59,7 +60,7 @@ function Signup(props) {
 
           <Form.Group controlId="exampleForm.ControlSelect1">
             <Form.Label>Role</Form.Label>
-            <Form.Control name='role' as="select">
+            <Form.Control onChange={handleChange} name='role' as="select">
               <option value='user'>User</option>
               <option value='editor'>Editor</option>
               <option value='admin'>Admin</option>
