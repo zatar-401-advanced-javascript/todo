@@ -1,16 +1,22 @@
+import { useContext } from 'react';
+import { AuthContext } from '../context/auth'
+
 function useList(handler, todoAPI, setList, list) {
-
+  const contextType = useContext(AuthContext);
+  
   const toggleComplete = id => {
+    if (contextType.user.capabilities.includes('update')) {
 
-    let item = list.filter(i => i._id === id)[0] || {};
-    let url = `${todoAPI}/${id}`;
+      let item = list.filter(i => i._id === id)[0] || {};
+      let url = `${todoAPI}/${id}`;
 
-    if (item._id) {
-      item.complete = !item.complete;
-      handler(url, 'put', item)
-        .then(savedItem => {
-          setList(list.map(listItem => listItem._id === item._id ? savedItem : listItem));
-        })
+      if (item._id) {
+        item.complete = !item.complete
+        handler(url, 'put', item)
+          .then(savedItem => {
+            setList(list.map(listItem => listItem._id === item._id ? savedItem : listItem));
+          })
+      }
     }
   };
 
@@ -25,7 +31,6 @@ function useList(handler, todoAPI, setList, list) {
   const loader = () => {
     handler(todoAPI, 'get', '')
       .then(data => {
-        console.log('test')
         setList(data.results)
       })
   }

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Badge, CloseButton, Container, Row, Col, Modal } from 'react-bootstrap';
 import usePagination from '../../hooks/pagination'
-
-
+import Auth from '../auth/auth'
 
 function TodoList(props) {
+
   const { showList, pageNumbers } = usePagination(props.list);
   let list = showList();
 
@@ -12,24 +12,27 @@ function TodoList(props) {
     <>
       {list.map(item => (
         <Modal.Dialog key={item._id}>
+
           <Modal.Header>
             <Modal.Title><Badge onClick={() => props.handleComplete(item._id)} variant={item.complete ? "success" : "danger"}>{item.complete ? "Completed" : "Pending"}</Badge></Modal.Title>
-            <CloseButton onClick={() => props.handleDelete(item._id)} />
+            <Auth capability="delete">
+              <CloseButton onClick={() => props.handleDelete(item._id)} />
+            </Auth>
           </Modal.Header>
 
           <Modal.Body>
-          <strong>Task: </strong>{item.text}
+            <strong>Task: </strong>{item.text}
           </Modal.Body>
 
-          <Modal.Footer style={{paddingBottom:'0'}}>
-          <Modal.Body style={{paddingBottom:'12px', paddingLeft:'0'}}>
-           <strong>Assigned to: </strong>{item.assignee}
-          </Modal.Body>
-          <strong>Difficulty: </strong>{item.difficulty}
+          <Modal.Footer style={{ paddingBottom: '0' }}>
+            <Modal.Body style={{ paddingBottom: '12px', paddingLeft: '0' }}>
+              <strong>Assigned to: </strong>{item.assignee}
+            </Modal.Body>
+            <strong>Difficulty: </strong>{item.difficulty}
           </Modal.Footer>
+
         </Modal.Dialog>
       ))}
-
 
       <Container style={{ marginTop: '20px' }}>
         <Row>

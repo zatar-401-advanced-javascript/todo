@@ -3,15 +3,14 @@ import { Pagination } from 'react-bootstrap';
 import { SettingsContext } from '../context/settings';
 import { If } from 'react-if';
 
-
 function usePagination(list) {
   const siteContext = useContext(SettingsContext);
   const [activePage, setActivePage] = useState(1)
+
   let filteredList = []
 
   const showCompleted = () => {
     if (siteContext.displayCompleted === true) {
-      console.log('test')
       filteredList = [...list];
     } else {
       list.forEach((item) => {
@@ -34,6 +33,7 @@ function usePagination(list) {
     }
 
     showCompleted()
+
     if (siteContext.sort === 'difficulty') {
       sort()
     }
@@ -46,18 +46,22 @@ function usePagination(list) {
     }
 
     let showItem = []
+
     for (let i = begin; i <= condition; i++) {
       if (i === begin) {
         showItem = [];
       }
       showItem.push(filteredList[i])
     }
+
     return showItem;
   }
 
   const pageNumbers = () => {
+
     let items = [];
     let max = Math.ceil(filteredList.length / siteContext.perScreen)
+
     for (let number = 1; number <= max; number++) {
       items.push(
         <Pagination.Item onClick={() => handleChange(number)} key={number} active={number === activePage}>
@@ -65,6 +69,7 @@ function usePagination(list) {
         </Pagination.Item>
       );
     }
+
     return (
       <Pagination size="sm">
         <If condition={activePage > 1}>
@@ -83,7 +88,9 @@ function usePagination(list) {
   }
 
   const handleChange = (number) => {
-    setActivePage(number);
+    if(number > 0){
+      setActivePage(number);
+    }
   }
 
   return { showList, pageNumbers };
