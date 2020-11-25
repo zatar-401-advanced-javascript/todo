@@ -1,13 +1,10 @@
 import { useState, useContext } from 'react';
 import { Pagination } from 'react-bootstrap';
-import context from 'react-bootstrap/esm/AccordionContext';
 import { SettingsContext } from '../context/settings';
 import { If } from 'react-if';
 
-// import useForm from './form'
 
 function usePagination(list) {
-  // const [x,setList] = useForm()
   const siteContext = useContext(SettingsContext);
   const [activePage, setActivePage] = useState(1)
   let filteredList = []
@@ -22,7 +19,6 @@ function usePagination(list) {
           filteredList.push(item)
         }
       })
-      // setList(filteredList)
     }
   }
 
@@ -48,7 +44,7 @@ function usePagination(list) {
     if (condition >= filteredList.length) {
       condition = filteredList.length - 1;
     }
-    
+
     let showItem = []
     for (let i = begin; i <= condition; i++) {
       if (i === begin) {
