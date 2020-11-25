@@ -5,6 +5,7 @@ import { Navbar, Nav, Container, Row, Col } from 'react-bootstrap';
 import useForm from '../../hooks/form';
 import useList from '../../hooks/list';
 import useAjax from '../../hooks/api';
+import usePagination from '../../hooks/pagination'
 import './todo.scss';
 
 function ToDo() {
@@ -14,7 +15,8 @@ function ToDo() {
 
   useEffect(() => {
     loader()
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
 
   useEffect(() => {
     document.title = `To Do List: ${list.filter(item => !item.complete).length}`
