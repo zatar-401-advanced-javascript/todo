@@ -4,7 +4,7 @@ import Header from './components/header'
 import ToDo from './components/todo/todo.js';
 import AuthProvider from './context/auth';
 import Auth from './components/auth/auth'
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import './components/todo/todo.scss';
 
 export default function App() {
