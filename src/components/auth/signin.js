@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../context/auth';
-import { Modal, Button, Form } from 'react-bootstrap';
+import { Modal, Button, Form, Alert } from 'react-bootstrap';
+import { If } from 'react-if'
 
 function Login(props) {
   const contextType = useContext(AuthContext);
@@ -14,10 +15,11 @@ function Login(props) {
       setPassword(e.target.value)
     }
   };
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.onHide()
-    contextType.login(username, password);
+    contextType.login(username, password)
   };
 
 
@@ -30,7 +32,7 @@ function Login(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-        Signin
+          Signin
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -46,6 +48,11 @@ function Login(props) {
           </Form.Group>
         </Form>
       </Modal.Body>
+      <If condition={contextType.error}>
+        <Alert variant='danger'>
+          User already registered
+      </Alert>
+      </If>
       <Modal.Footer>
         <Button variant="info" className='btnAdd' onClick={handleSubmit}>Signin</Button>
       </Modal.Footer>

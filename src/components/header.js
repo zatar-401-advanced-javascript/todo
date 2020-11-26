@@ -10,6 +10,14 @@ function Header() {
   const [signinShow, setSigninShow] = useState(false);
   const [signupShow, setSignupShow] = useState(false);
 
+  if (!contextType.error && contextType.loggedIn && signinShow) {
+    setSigninShow(false)
+  }
+
+  if (!contextType.error && contextType.loggedIn && signupShow) {
+    setSignupShow(false)
+  }
+
   return (
     <Navbar className='nav' variant="dark" >
       <Nav className="mr-auto" >
