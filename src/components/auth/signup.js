@@ -1,13 +1,15 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../context/auth';
-import { Modal, Button, Form } from 'react-bootstrap';
+import { Modal, Button, Form, Alert } from 'react-bootstrap';
+import { If } from 'react-if'
+
 
 function Signup(props) {
   const contextType = useContext(AuthContext);
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
-  const [role, setRole] = useState('')
+  const [role, setRole] = useState('user')
 
   const handleChange = (e) => {
     if (e.target.name === 'username') {
@@ -23,8 +25,6 @@ function Signup(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.onHide()
-    console.log(username, email, password, role)
     contextType.signup(username, email, password, role);
   };
 
@@ -68,6 +68,11 @@ function Signup(props) {
           </Form.Group>
         </Form>
       </Modal.Body>
+      <If condition={contextType.error}>
+        <Alert variant='danger'>
+          User already registered
+      </Alert>
+      </If>
       <Modal.Footer>
         <Button variant="info" className='btnAdd' onClick={handleSubmit}>Signup</Button>
       </Modal.Footer>

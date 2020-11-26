@@ -13,6 +13,7 @@ function AuthProvider(props) {
   
   const [loggedIn, setLoggedIn] = useState(false)
   const [user, setUser] = useState({})
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     const token = cookie.load('auth');
@@ -33,6 +34,7 @@ function AuthProvider(props) {
     cookie.save('auth', token);
     setUser(user)
     setLoggedIn(loggedIn);
+    setError(false)
   };
 
   const login = async (username, password) => {
@@ -41,8 +43,9 @@ function AuthProvider(props) {
         .post(`${API}/signin`)
         .set('authorization', `Basic ${btoa(`${username}:${password}`)}`);
       validateToken(response.body.token);
+      console.log('here')
     } catch (e) {
-      console.error(e.message);
+      setError(true)
     }
   };
 
@@ -52,8 +55,9 @@ function AuthProvider(props) {
         .post(`${API}/signup`)
         .send({username,email,password,role});
       validateToken(response.body.token);
+      console.log('here')
     } catch (e) {
-      console.error(e.message);
+      setError(true)
     }
   };
 
@@ -61,7 +65,7 @@ function AuthProvider(props) {
     setLoginState(false, null, {});
   };
 
-  const state = { login, logout, signup, loggedIn,user };
+  const state = { login, logout, signup, loggedIn,user,error,setError };
 
   return (
     <AuthContext.Provider value={state}>
