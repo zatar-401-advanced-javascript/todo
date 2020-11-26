@@ -41,11 +41,19 @@ function Header() {
       </If>
       <Signin
         show={signinShow}
-        onHide={() => setSigninShow(false)}
+        onHide={() => {
+          setSigninShow(false)
+          contextType.setError(false)
+        }
+        }
       />
       <Signup
         show={signupShow}
-        onHide={() => setSignupShow(false)}
+        onHide={() => {
+          setSignupShow(false)
+          contextType.setError(false)
+        }
+        }
       />
     </Navbar>
   );
