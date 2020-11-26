@@ -50,7 +50,7 @@ function Login(props) {
       </Modal.Body>
       <If condition={contextType.error}>
         <Alert variant='danger'>
-          User already registered
+          Wrong username or password
       </Alert>
       </If>
       <Modal.Footer>
